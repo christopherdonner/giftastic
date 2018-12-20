@@ -6,16 +6,31 @@ var queryURL=`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}`
 var button=$("<button>")
 var div=$("<div>")
 var p = $("<p>")
+var main=$("#main")
 
 for(i=0;i<topics.length;i++)
 {
-  console.log(topics[i])
-  div.appendTo($("#main")).attr("id", i)
-  button.text(topics[i]).addClass("btn btn-primary").attr("id", i).appendTo(div)
-  //btn.appendTo(p).appendTo($("#main"))
+  for (var i = 0; i < topics.length; i++) {
+
+    // Then dynamicaly generating buttons for each movie in the array.
+    // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+    var btn = $("<button>");
+    // Adding a class
+    btn.addClass("movie");
+    // Adding a data-attribute with a value of the movie at index i
+    btn.attr("data-name", topics[i]);
+    // Providing the button's text with a value of the movie at index i
+    btn.text(topics[i]);
+    btn.addClass("btn btn-dark")
+    btn.attr("id", topics[i])
+    // Adding the button to the HTML
+    $("#main").append(btn);
+  }
 }
 
-
+$("button").on("click", function() {
+console.log(this.id)
+query=this.id
 console.log(queryURL)
 $.ajax(
   {
@@ -26,3 +41,4 @@ $.ajax(
     console.log(response);
   });
 
+})

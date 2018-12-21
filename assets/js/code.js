@@ -10,21 +10,15 @@ var main=$("#main")
 
 for(i=0;i<topics.length;i++)
 {
-  for (var i = 0; i < topics.length; i++) {
+  for (var i = 0; i < topics.length; i++) 
+  {
 
-    // Then dynamicaly generating buttons for each movie in the array.
-    // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-    var btn = $("<button>");
-    // Adding a class
-    //btn.addClass("movie");
-    // Adding a data-attribute with a value of the movie at index i
-    btn.attr("data-name", topics[i]);
-    // Providing the button's text with a value of the movie at index i
-    btn.text(topics[i]);
-    btn.addClass("btn btn-dark")
+   var btn = $("<button>");
+    btn.attr("data-name", topics[i])
+    btn.text(topics[i])
+    btn.addClass("btn btn-dark");
     btn.attr("id", topics[i])
-    // Adding the button to the HTML
-    $("#main").append(btn);
+    $("#buttons").append(btn);
   }
 }
 
@@ -38,7 +32,14 @@ $.ajax(
     method: "GET"
   }).then(function(response) 
   {
-    console.log(response.data);
+    console.log(response.data[0].images);
+    var image=$("<img>")
+    image.addClass("pictures")
+    image.attr("src", response.data[0].images.fixed_height_still.url)
+    $("#gifs").append(image)
+    image.attr("data-still", response.data[0].images.fixed_height_still.url)
+    image.attr("data-animated", response.data[0].images.fixed_height.url)
+    image.attr("data-state", "still")
   });
 
 

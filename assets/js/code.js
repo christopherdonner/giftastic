@@ -2,7 +2,7 @@ var topics=["cat", "dog", "bat", "cow"]
 var query=""
 var rating="g"
 var apiKey="PWJVgwxjQJNaf0VkGGCRU10EJah7ZjSP"
-var queryURL=`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}`
+var queryURL="https://api.giphy.com/v1/gifs/search?api_key="+apiKey+"q="+query
 var button=$("<button>")
 var div=$("<div>")
 var p = $("<p>")
@@ -16,7 +16,7 @@ for(i=0;i<topics.length;i++)
     // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
     var btn = $("<button>");
     // Adding a class
-    btn.addClass("movie");
+    //btn.addClass("movie");
     // Adding a data-attribute with a value of the movie at index i
     btn.attr("data-name", topics[i]);
     // Providing the button's text with a value of the movie at index i
@@ -34,11 +34,12 @@ query=this.id
 console.log(queryURL)
 $.ajax(
   {
-    url: queryURL,
+    url: "https://api.giphy.com/v1/gifs/search?api_key="+apiKey+"&q="+query,
     method: "GET"
   }).then(function(response) 
   {
-    console.log(response);
+    console.log(response.data);
   });
+
 
 })

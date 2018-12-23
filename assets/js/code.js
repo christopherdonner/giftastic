@@ -42,6 +42,12 @@ function drawButtons() {
 console.log(topics)
 drawButtons();
 
+// reset button
+$("#reset").on("click", function () 
+{
+  $("#gifs").empty();
+});
+
 //onclick event listener for the buttons
 $(".myButtons").on("click", function () {
   console.log("button push")

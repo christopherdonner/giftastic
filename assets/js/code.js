@@ -61,10 +61,10 @@ $(".myButtons").on("click", function () {
       var pic = $("<img>")
 
       pic.addClass("pictures");
-      pic.attr("src", response.data[rando].images.fixed_height.url);
+      pic.attr("src", response.data[rando].images.fixed_height_still.url);
       pic.attr("data-still", response.data[rando].images.fixed_height_still.url);
       pic.attr("data-animated", response.data[rando].images.fixed_height.url);
-      pic.attr("data-state", "animated");
+      pic.attr("data-state", "still");
       $("#gifs").append(pic);
     });
 
@@ -73,13 +73,13 @@ $(".myButtons").on("click", function () {
   $(".pictures").on("click", function () {
     console.log("image click")
     var state = $(this).attr("data-state")
-    if (state === "animated") {
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animatedl"))
+      $(this).attr("data-state", "animated")
+    }
+    else if(state === "animated") {
       $(this).attr("src", $(this).attr("data-still"))
       $(this).attr("data-state", "still")
-    }
-    else {
-      $(this).attr("src", $(this).attr("data-animated"))
-      $(this).attr("data-state", "animated")
     }
   })
 })
@@ -87,7 +87,7 @@ $(".myButtons").on("click", function () {
 // add new buttons from addButton form upon submitButton click
 $("#submitButton").on("click", function () {
   event.preventDefault();
-  topics.push($("#addButton").val())
+  topics.push($("#addButton").val().trim())
   $("#addButton").val("")
   console.log(topics)
   drawButtons();

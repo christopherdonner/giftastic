@@ -1,9 +1,23 @@
-var topics = ["cat", "dog", "bat", "cow", "rabbit"]
+var topics = [
+  "alligator",
+  "bear",
+  "cat",
+  "dog",
+  "elephant",
+  "fox",
+  "giraffe",
+  "hippopotamus",
+  "iguana",
+  "jaguar",
+  "koala",
+  "lion",
+  "monkey",
+  "naked mole rat"]
 var query = ""
 var rating = "g"
 var apiKey = "PWJVgwxjQJNaf0VkGGCRU10EJah7ZjSP"
 var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "q=" + query
-var button = $("<button>")
+//var button = $("<button>")
 var div = $("<div>")
 var p = $("<p>")
 
@@ -19,49 +33,47 @@ function drawButtons() {
       //btn.attr("data-name", topics[i])
       btn.text(topics[i])
       btn.addClass("btn btn-dark");
+      btn.addClass("myButtons")
       btn.attr("id", topics[i])
       $("#buttons").append(btn);
     }
   }
 }
-
+console.log(topics)
 drawButtons();
 
 //onclick event listener for the buttons
-$("button").on("click", function () {
-  console.log(this.id)
+$(".myButtons").on("click", function () {
+  console.log("button push")
   query = this.id
-  console.log(queryURL)
   $.ajax(
     {
       url: "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=" + query,
       method: "GET"
     }).then(function (response) {
-      var rando=Math.floor(Math.random()*10)
-      console.log(response.data[rando].images);
+      var rando = Math.floor(Math.random() * 10)
       var pic = $("<img>")
 
-      pic.attr("src", response.data[rando].images.fixed_height_still.url);
+      pic.addClass("pictures");
+      pic.attr("src", response.data[rando].images.fixed_height.url);
       pic.attr("data-still", response.data[rando].images.fixed_height_still.url);
       pic.attr("data-animated", response.data[rando].images.fixed_height.url);
-      pic.attr("data-state", "still");
-      pic.addClass("pictures");
+      pic.attr("data-state", "animated");
       $("#gifs").append(pic);
     });
 
-    //var gif=$(".pictures")
-    //var image = $(".pictures")
+  //var gif=$(".pictures")
+  //var image = $(".pictures")
   $(".pictures").on("click", function () {
+    console.log("image click")
     var state = $(this).attr("data-state")
-    console.log(this)
-    console.log($(this).attr("data-state"))
-    if ($(this).attr("data-state") === "still") {
-      $(this).attr("src", $(this).attr("data-animated"))
-      $(this).attr("data-state", "animated")
-    }
-    else {
+    if (state === "animated") {
       $(this).attr("src", $(this).attr("data-still"))
       $(this).attr("data-state", "still")
+    }
+    else {
+      $(this).attr("src", $(this).attr("data-animated"))
+      $(this).attr("data-state", "animated")
     }
   })
 })
@@ -69,9 +81,9 @@ $("button").on("click", function () {
 // add new buttons from addButton form upon submitButton click
 $("#submitButton").on("click", function () {
   event.preventDefault();
-  console.log($("#addButton").val())
   topics.push($("#addButton").val())
   $("#addButton").val("")
+  console.log(topics)
   drawButtons();
   //topics.push()
 })

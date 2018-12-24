@@ -70,14 +70,17 @@ $(".myButtons").on("click", function () {
 
   //var gif=$(".pictures")
   //var image = $(".pictures")
-  $(".pictures").on("click", function () {
+  $(".pictures").on("click", function () 
+    {
     console.log("image click")
-    var state = $(this).attr("data-state")
-    if (state === "still") {
-      $(this).attr("src", $(this).attr("data-animatedl"))
+    console.log($(this).attr("data-state"))
+    if ($(this).attr("data-state") === "still") 
+    {
+      $(this).attr("src", $(this).attr("data-animated"))
       $(this).attr("data-state", "animated")
     }
-    else if(state === "animated") {
+    else 
+    {
       $(this).attr("src", $(this).attr("data-still"))
       $(this).attr("data-state", "still")
     }
